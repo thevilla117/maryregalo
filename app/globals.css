@@ -1,26 +1,95 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-cormorant: var(--font-cormorant);
+  --font-montserrat: var(--font-montserrat);
+  --color-gold-300: #fde047;
+  --color-gold-400: #facc15;
+  --color-gold-500: #eab308;
+  --color-gold-600: #ca8a04;
+  --color-neon-yellow: #fde047;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #000000;
+    --foreground: #ffffff;
+    --dark-color: #000;
   }
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(250, 204, 21, 0.3); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(250, 204, 21, 0.6); }
+
+.text-glow {
+  text-shadow: 0 0 15px rgba(253, 224, 71, 0.4), 0 0 30px rgba(253, 224, 71, 0.2);
+}
+.text-sparkle {
+  animation: sparkle 2s ease-in-out infinite alternate;
+}
+@keyframes sparkle {
+  0%  { text-shadow: 0 0 10px rgba(253, 224, 71, 0.2); opacity: 0.85; }
+  100% { text-shadow: 0 0 25px rgba(253, 224, 71, 0.9), 0 0 10px rgba(255,255,255,0.5); opacity: 1; }
+}
+.box-glow {
+  box-shadow: 0 0 20px rgba(253, 224, 71, 0.3), inset 0 0 15px rgba(253, 224, 71, 0.1);
+}
+
+/* ================================================================
+   FLOWER KEYFRAMES — adapted from flores-amarillas-tres reference
+   ================================================================ */
+
+@keyframes blooming-flower {
+  0% { transform: scale(0); }
+}
+@keyframes grow-flower-tree {
+  0% { height: 0; border-radius: 1vmin; }
+}
+@keyframes blooming-leaf-right {
+  0% { transform-origin: left; transform: rotate(70deg) rotateY(30deg) scale(0); }
+}
+@keyframes blooming-leaf-left {
+  0% { transform-origin: right; transform: rotate(-70deg) rotateY(30deg) scale(0); }
+}
+@keyframes light-ans {
+  0%   { opacity: 0; transform: translateY(0vmin); }
+  25%  { opacity: 1; transform: translateY(-5vmin) translateX(-2vmin); }
+  50%  { opacity: 1; transform: translateY(-15vmin) translateX(2vmin); filter: blur(0.2vmin); }
+  75%  { transform: translateY(-20vmin) translateX(-2vmin); filter: blur(0.2vmin); }
+  100% { transform: translateY(-30vmin); opacity: 0; filter: blur(1vmin); }
+}
+@keyframes moving-flower-1 {
+  0%, 100% { transform: rotate(2deg); }
+  50%       { transform: rotate(-2deg); }
+}
+@keyframes moving-flower-2 {
+  0%, 100% { transform: rotate(18deg); }
+  50%       { transform: rotate(14deg); }
+}
+@keyframes moving-flower-3 {
+  0%, 100% { transform: rotate(-18deg); }
+  50%       { transform: rotate(-20deg) rotateY(-10deg); }
+}
+@keyframes grow-ans {
+  0% { transform: scale(0); opacity: 0; }
+}
+@keyframes growing-grass-ans {
+  0% { transform: scale(0); }
+}
+@keyframes moving-grass {
+  0%, 100% { transform: rotate(-48deg) rotateY(40deg); }
+  50%       { transform: rotate(-50deg) rotateY(40deg); }
+}
+@keyframes flower-g-long-ans {
+  0%, 100% { transform: rotate(-30deg) rotateY(-20deg); }
+  50%       { transform: rotate(-32deg) rotateY(-20deg); }
 }
