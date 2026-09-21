@@ -20,19 +20,20 @@ interface ParticleFieldProps {
 }
 
 export default function ParticleField({ intensity = 'medium' }: ParticleFieldProps) {
-  const count = intensity === 'low' ? 40 : intensity === 'medium' ? 80 : 140;
+  // Drastically reduced particle count to fix performance on mobile/mid-range devices
+  const count = intensity === 'low' ? 15 : intensity === 'medium' ? 25 : 45;
 
   const particles: Particle[] = useMemo(() => {
     return Array.from({ length: count }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: Math.random() * 4 + 1,
+      size: Math.random() * 3 + 1,
       duration: Math.random() * 8 + 6,
       delay: Math.random() * 8,
-      opacity: Math.random() * 0.6 + 0.2,
-      type: i % 5 === 0 ? 'star' : i % 3 === 0 ? 'bubble' : 'dust',
-      driftX: (Math.random() - 0.5) * 60,
+      opacity: Math.random() * 0.4 + 0.1, // slightly lower opacity to offset lost blur
+      type: i % 4 === 0 ? 'star' : i % 3 === 0 ? 'bubble' : 'dust',
+      driftX: (Math.random() - 0.5) * 40,
     }));
   }, [count]);
 
@@ -98,7 +99,7 @@ export default function ParticleField({ intensity = 'medium' }: ParticleFieldPro
                 <path
                   d="M5,0 L5.5,4 L10,5 L5.5,6 L5,10 L4.5,6 L0,5 L4.5,4 Z"
                   fill="#fef08a"
-                  style={{ filter: 'drop-shadow(0 0 3px rgba(253,224,71,0.9))' }}
+                  opacity={0.8}
                 />
               </svg>
             </motion.div>
@@ -109,13 +110,12 @@ export default function ParticleField({ intensity = 'medium' }: ParticleFieldPro
           return (
             <motion.div
               key={p.id}
-              className="absolute rounded-full border border-yellow-300/30"
+              className="absolute rounded-full border border-yellow-300/20"
               style={{
                 left: `${p.x}%`,
                 width: p.size * 3,
                 height: p.size * 3,
-                background: 'radial-gradient(circle at 30% 30%, rgba(253,224,71,0.15), transparent)',
-                boxShadow: '0 0 8px rgba(253,224,71,0.2), inset 0 0 8px rgba(253,224,71,0.1)',
+                background: 'radial-gradient(circle at 30% 30%, rgba(253,224,71,0.1), transparent)',
               }}
               initial={{ y: `${p.y + 20}vh`, opacity: 0 }}
               animate={{
@@ -137,12 +137,11 @@ export default function ParticleField({ intensity = 'medium' }: ParticleFieldPro
         return (
           <motion.div
             key={p.id}
-            className="absolute rounded-full bg-yellow-200"
+            className="absolute rounded-full bg-yellow-200/80"
             style={{
               left: `${p.x}%`,
               width: p.size,
               height: p.size,
-              boxShadow: `0 0 ${p.size * 2}px rgba(253,224,71,0.6)`,
             }}
             initial={{ y: `${p.y + 20}vh`, opacity: 0 }}
             animate={{
